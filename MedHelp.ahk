@@ -4717,30 +4717,31 @@ __unicodeToAnsi(wString, nLen = 0) {
     return sString
 }
 }
-#IfWinActive GTA:SA:MP
-AntiCrash()
+;~ Начало скрипта
+#IfWinActive GTA:SA:MP ; Если открыт САМП
+AntiCrash() ; АнтиКраш
 
-pLogin = 0
+pLogin = 0 ; Устанавливаем статус "Не авторизирован"
 
-Her:
+Her: ; Пустая переменная, на всякий случай
 return
 
-Done:
+Done: ; Ошибка "Вы уже авторизированы"
 AddChatMessageEx("0099ff", "{ffffff}Вы уже {0099ff}авторизированы.")
 return
 
-Done1:
+Done1: ; Ошибка "Вы не авторизированы"
 AddChatMessageEx("0099ff", "{ffffff}Вы {0099ff}не авторизированы. ({ffffff}/login{0099ff})")
 return
 
-:?:/login::
+:?:/login:: ; Процесс логина
 Sleep 250
-if (pLogin = 1) {
+if (pLogin = 1) { ; Если статус "Авторизирован" - переход на точку Done
     Goto Done
 }
 {
-    server := getServerName()
-if (server = "Diamond Role Play | Emerald") {
+    server := getServerName() ; Получаем название сервера
+if (server = "Diamond Role Play | Emerald") { ; Если сервер - Эмеральд. Далее аналогично. mvd и т.д. - цены лечения днем.
 mvd=50
 fbi=150
 smi=100
@@ -4751,7 +4752,7 @@ ap=150
 bandi=150
 mafii=150
 bitch=150
-
+;~ Ночные цены
 nmvd=50
 nfbi=150
 nsmi=100
@@ -4762,16 +4763,16 @@ nap=150
 nbandi=150
 nmafii=150
 nbitch=150
-
+;~ Начало и конец ночной смены
 nNight:=03
 kNight:=04
-
+;~ Цены вакцин
 vac1=
 vac2=
 vac3=
 vac4=
     }
-if (server = "Diamond Role Play | Radiant") {
+if (server = "Diamond Role Play | Radiant") { 
 mvd=120
 fbi=120
 smi=120
@@ -4927,7 +4928,7 @@ vac3=
 vac4=
     }
 }
-if (server = "Diamond Role Play | Emerald") {
+if (server = "Diamond Role Play | Emerald") { ; Если сервер Эмеральд переходим на точку Logg. Далее аналогично
 goto Logg
 }
 if (server = "Diamond Role Play | Radiant") {
@@ -4943,7 +4944,7 @@ if (server = "Diamond Role Play | Sapphire") {
 goto Logg
 }
 if (server = "Diamond Role Play | Onyx") {
-addChatMessageEx("0099ff","{ffffff}На сервере{0099ff}Onyx {ffffff}скрипт не работает.")
+addChatMessageEx("0099ff","{ffffff}На сервере{0099ff}Onyx {ffffff}скрипт не работает.") ; Ошибка при которой нельзя запустить сервер на сервере Onyx
 ExitApp
 }
 if (server = "Diamond Role Play | Amber") {
@@ -4955,31 +4956,31 @@ ExitApp
 }
 return
 
-Logg:
+Logg: ; Окно логина
 showDialog("1", "{0099ff}Введите ключ", "{ffffff}(ввод цифр вручную и без исправлений)`n1234 - триал версия до 2018 года", "Ok", "Cancel")
 Input, pKey, V, {enter}
 Sleep 250
 pYear := A_Year
-if (pKey = 1234) {
+if (pKey = 1234) { ; Устанавливаем действия на ключ "1234"
     if (pYear >= 2018) {
     AddChatMessageEx("ffffff","{ffffff}К сожалению, триал версия закончилась.")
     }
     if (pYear = 2017) {
     AddChatMessageEx("0099ff", "{ffffff}Время действия ключа: {0099ff}до 2018 года.")
     pLogin = 1
-    goto GetStats
+    goto GetStats ; Прыгаем на GetStats
 }
 }
-if (pKey = 992244) {
+if (pKey = 992244) { ; Устанавливаем действия на ключ "992244"
 pLogin = 1
 AddChatMessageEx("0099ff", "{ffffff}Время действия ключа: {0099ff}неограничено.")
-goto GetStats
+goto GetStats ; Прыгаем на GetStats
 }
 Sleep 210
-AddChatMessageEx("0099ff", "{ffffff}Неверный {0099ff}ключ.")
+AddChatMessageEx("0099ff", "{ffffff}Неверный {0099ff}ключ.") ; Если ключ не верный
 return
 
-GetStats:
+GetStats: ; 
 if (pLogin = 1)
 {
 SendChat("/stats")
@@ -4990,9 +4991,6 @@ if (pOrg = Минздрав)
 Sleep 100
 SendInput, {enter}
 pNick := getUsername()
-pIP := getIP()
-Sleep 200
-;~ SendChat("/t 334567 Login | " pNick " | " pKey)
 AddChatMessageEx("ffffff","{ffffff}Вы были успешно авторизированы. Главное меню: {0099ff}/hp")
 }
 }
@@ -5006,7 +5004,7 @@ Sleep 210
 {
 chp := A_NowUTC+30000
 cdhp := A_Now
-raz := chp-cdhp
+raz := chp-cdhp ; Тут мы определили насколько часовой пояс компа отстает от московского и добавили недостающее время
 if (raz = 0)
 {
     dHour := A_Hour
