@@ -1,0 +1,930 @@
+script_name('Mass Media Assistant')
+script_version_number(1)
+script_version('1.0')
+script_author('Rilliano_Casiano')
+local sampev = require 'lib.samp.events'
+
+require "lib.moonloader"
+require "lib.sampfuncs"
+require "lib.vkeys"
+
+-- ==================SETTINGS=================
+Name = "Rilliano"
+Surname = "Casiano" 
+Tag = "LV"
+City = "Las-Venturas"
+Rang = "Главный Редактор"
+Number = "444-447"
+-- ==================SETTINGS=================
+
+function sampev.onServerMessage(color, text)
+	if string.find(text, "Аккаунт успешно сохранён") then
+		lua_thread.create(function()
+			punish = "payday"
+			wait(0)
+    		sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    	end)
+	end
+end
+
+
+function main()
+	if not isSampfuncsLoaded() or not isSampLoaded() then return end
+	while not isSampAvailable() do wait(100) end
+	kek = "lol"
+	sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Mass Media Assistant v1.0 by Rilliano Casiano загружен.", 0xffffff)
+	sampRegisterChatCommand("main", cmd_main)
+	sampRegisterChatCommand("r", cmd_r)
+	sampRegisterChatCommand("f", cmd_f)
+	sampRegisterChatCommand("rn", cmd_rn)
+	sampRegisterChatCommand("fn", cmd_fn)
+	sampRegisterChatCommand("p", cmd_p)
+	sampRegisterChatCommand("h", cmd_h)
+	while true do
+		wait(0)
+		-- /main
+		result, button, list, reason = sampHasDialogRespond(3000)
+		if result then
+			if button == 1 then 
+				if list == 0 then -- Управление фракцией
+					sampShowDialog(3001, "{FFFF66}Управление фракцией", "{4271FF}1.{FFFFFF} Invite\n{4271FF}2.{FFFFFF} Uninvite\n{4271FF}3.{FFFFFF} Fwarn\n{4271FF}4.{FFFFFF} Fwarnoff\n{4271FF}5.{FFFFFF} Unfwarn\n{4271FF}6.{FFFFFF} Rang\n{4271FF}7.{FFFFFF} Setskin", "Ok", "Cancel", 2)
+				elseif list == 1 then -- Собеседование
+					sampShowDialog(3002, "{FFFF66}Собеседование", "{4271FF}1.{FFFFFF} Начать собеседование", "Ok", "Cancel", 2)
+				elseif list == 2 then -- Прочее
+					sampShowDialog(3003, "{FFFF66}Прочее", "{4271FF}1.{FFFFFF} Лекции\n{4271FF}2.{FFFFFF} Проверка", "Ok", "Cancel", 2)
+				end
+			end
+		end
+		--
+		-- /main > 1
+		result, button, list, reason = sampHasDialogRespond(3001)
+		if result then
+			if button == 1 then 
+				if list == 0 then -- Invite
+					sampShowDialog(3011, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				elseif list == 1 then -- Uninvite
+					sampShowDialog(3012, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				elseif list == 2 then -- Fwarn
+					sampShowDialog(3013, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				elseif list == 3 then -- Fwarnoff
+					sampShowDialog(3014, "{FFFF66}Введите никнейм", "", "Ok", "Cancel", 1)
+				elseif list == 4 then -- Unfwarn
+					sampShowDialog(3015, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				elseif list == 5 then -- Rang
+					sampShowDialog(3016, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				elseif list == 6 then -- Setskin
+					sampShowDialog(3017, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 1
+		result, button, list, reason = sampHasDialogRespond(3011)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3011, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					lua_thread.create(function()
+						nickname = sampGetPlayerNickname(pid)
+						punish = "invite"
+    					cause = "-"
+    					sampSendChat("/me вошел в приложение '" ..Tag.. "FM'")
+    					wait(2100)
+    					sampSendChat("/me выбрал в приложении вкладку 'Сотрудники', после чего нажал на кнопку '+'")
+    					wait(2100)
+    					sampSendChat("/me заполнил данные о сотруднике")
+    					wait(2100)
+    					sampSendChat("/do На полу лежит коробка с герметично запакованными пакетами.")
+    					wait(2100)
+    					sampSendChat("/me достал из коробки пакет с формой 'Начинающий работник' и передал его человеку напротив")
+    					wait(500)
+    					sampSendChat("/invite " ..pid)
+    					while true do
+    						wait(10)
+    						if isKeyDown(VK_ADD) then
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}log " ..nickname.. " | " ..punish.. " | " ..cause, 0xFFFFFF)
+    							wait(200)
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    							break
+    						end
+ 						end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 2
+		result, button, list, reason = sampHasDialogRespond(3012)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3012, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					sampShowDialog(3121, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 2 > 1
+		result, button, list, reason = sampHasDialogRespond(3121)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3121, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				else
+					lua_thread.create(function()
+						nickname = sampGetPlayerNickname(pid)
+						punish = "uninvite"
+    					cause = reason
+    					sampSendChat("/me вошел в приложение '" ..Tag.. "FM'")
+    					wait(2100)
+    					sampSendChat("/me выбрал в приложении вкладку 'Сотрудники', после чего нажал на кнопку '-'")
+    					wait(2100)
+    					sampSendChat("/me заполнил данные о сотруднике")
+    					wait(500)
+    					sampSendChat("/uninvite " ..pid.. " " ..Tag.. " • " ..cause.. " [" ..pid.. "]")
+    					while true do
+    						wait(10)
+    						if isKeyDown(VK_ADD) then
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}log " ..nickname.. " | " ..punish.. " | " ..cause, 0xFFFFFF)
+    							wait(200)
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    							break
+    						end
+ 						end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 3
+		result, button, list, reason = sampHasDialogRespond(3013)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3013, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					sampShowDialog(3131, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 3 > 1
+		result, button, list, reason = sampHasDialogRespond(3131)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3131, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				else
+					lua_thread.create(function()
+						nickname = sampGetPlayerNickname(pid)
+						punish = "fwarn"
+    					cause = reason
+    					sampSendChat("/me вошел в приложение '" ..Tag.. "FM'")
+    					wait(2100)
+    					sampSendChat("/me выбрал в приложении вкладку 'Сотрудники', после чего нажал на кнопку 'Взыскание'")
+    					wait(2100)
+    					sampSendChat("/me заполнил данные о сотруднике")
+    					wait(500)
+    					sampSendChat("/fwarn " ..pid.. " " ..Tag.. " • " ..cause.. " [" ..pid.. "]")
+    					while true do
+    						wait(10)
+    						if isKeyDown(VK_ADD) then
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}log " ..nickname.. " | " ..punish.. " | " ..cause, 0xFFFFFF)
+    							wait(200)
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    							break
+    						end
+ 						end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 4
+		result, button, list, reason = sampHasDialogRespond(3014)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3014, "{FFFF66}Введите никнейм", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					sampShowDialog(3141, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 4 > 1
+		result, button, list, reason = sampHasDialogRespond(3141)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3141, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				else
+					lua_thread.create(function()
+						nickname = pid
+						punish = "fwarnoff"
+    					cause = reason
+    					sampSendChat("/me вошел в приложение '" ..Tag.. "FM'")
+    					wait(2100)
+    					sampSendChat("/me выбрал в приложении вкладку 'Сотрудники', после чего нажал на кнопку 'Взыскание'")
+    					wait(2100)
+    					sampSendChat("/me заполнил данные о сотруднике")
+    					wait(500)
+    					sampSendChat("/fwarnoff " ..pid.. " " ..Tag.. " • " ..cause)
+    					while true do
+    						wait(10)
+    						if isKeyDown(VK_ADD) then
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}log " ..nickname.. " | " ..punish.. " | " ..cause, 0xFFFFFF)
+    							wait(200)
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    							break
+    						end
+ 						end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 5
+		result, button, list, reason = sampHasDialogRespond(3015)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3015, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					sampShowDialog(3151, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 5 > 1
+		result, button, list, reason = sampHasDialogRespond(3151)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3151, "{FFFF66}Введите причину", "", "Ok", "Cancel", 1)
+				else
+					lua_thread.create(function()
+						nickname = sampGetPlayerNickname(pid)
+						punish = "unfwarn"
+    					cause = reason
+    					sampSendChat("/me вошел в приложение '" ..Tag.. "FM'")
+    					wait(2100)
+    					sampSendChat("/me выбрал в приложении вкладку 'Сотрудники', после чего нажал на кнопку 'Отменить взыскание'")
+    					wait(2100)
+    					sampSendChat("/me заполнил данные о сотруднике")
+    					wait(500)
+    					sampSendChat("/unfwarn " ..pid.. " " ..Tag.. " • " ..cause)
+    					while true do
+    						wait(10)
+    						if isKeyDown(VK_ADD) then
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}log " ..nickname.. " | " ..punish.. " | " ..cause, 0xFFFFFF)
+    							wait(200)
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    							break
+    						end
+ 						end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 6
+		result, button, list, reason = sampHasDialogRespond(3016)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3016, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					sampShowDialog(3161, "{FFFF66}Введите ранги", "", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 6 > 1
+		result, button, list, reason = sampHasDialogRespond(3161)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3161, "{FFFF66}Введите ранги", "", "Ok", "Cancel", 1)
+				else
+					lua_thread.create(function()
+						nickname = sampGetPlayerNickname(pid)
+						punish = "rang"
+    					cause = reason
+    					sampSendChat("/me вошел в приложение '" ..Tag.. "FM'")
+    					wait(2100)
+    					sampSendChat("/me выбрал в приложении вкладку 'Сотрудники', после чего нажал на кнопку 'Изменить'")
+    					wait(2100)
+    					sampSendChat("/me заполнил данные о сотруднике")
+    					wait(500)
+    					sampSendChat("/cleatfstats " ..nickname)
+    					wait(500)
+    					sampSendChat("/rang " ..pid)
+    					while true do
+    						wait(10)
+    						if isKeyDown(VK_ADD) then
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}log " ..nickname.. " | " ..punish.. " | " ..cause, 0xFFFFFF)
+    							wait(200)
+    							sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    							break
+    						end
+ 						end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 1 > 7
+		result, button, list, reason = sampHasDialogRespond(3017)
+		if result then
+			if button == 1 then 
+				if #reason == 0 then -- Введите ID
+					sampShowDialog(3017, "{FFFF66}Введите ID", "", "Ok", "Cancel", 1)
+				else
+					pid = reason
+					lua_thread.create(function()
+						sampSendChat("/do На полу лежит коробка с герметично запакованными пакетами.")
+    					wait(2100)
+    					sampSendChat("/me достал из коробки пакет с формой и передал его человеку напротив")
+    					wait(500)
+    					sampSendChat("/setskin " ..pid)
+					end)
+				end
+			end
+		end
+		--
+        -- /main > 2 > 1
+		result, button, list, reason = sampHasDialogRespond(3002)
+		if result then
+			if button == 1 then 
+				if list == 0 then
+					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Собеседование начато", 0xFFFFFF)
+					lua_thread.create(function()
+						sampSendChat("Здравствуйте. Я - " ..Rang.. " радиоцентра " ..City.. " - " ..Name.. " " ..Surname.. ".")
+						wait(2100)
+						sampSendChat("Вы пришли на собеседование?")
+						wait(300)
+						sobes = 1
+						sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                        while sobes == 1 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек пришел на собеседование.", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Отлично. Предъявите Ваши документы.")
+                                wait(2100)
+                                sampSendChat("/n /pass [id] | /lic [id] | /med [id]")
+                                wait(300)
+                                sobes = 2
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек пришел не на собеседование.", 0xFFFFFF)
+                                wait(500)
+                                sobes = 0
+                                sampSendChat("Чем могу Вам помочь?")
+                                break
+                            end
+                        end
+                        while sobes == 2 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек подходит по документам.", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Отлично. С Вашими документами все в порядке.")
+                                wait(2100)
+                                sampSendChat("/n Что находится у меня в руке?")
+                                wait(300)
+                                sobes = 3
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек не подходит по документам.", 0xFFFFFF)
+                                wait(500)
+                                sobes = 0
+                                sampSendChat("К сожалению Вы нам не подходите.")
+                                break
+                            end
+                        end
+                        while sobes == 3 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек знает MG.", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Отлично. Возьмите со стола бланк и ручку и начинайте заполнять тест.")
+                                wait(2100)
+                                sampSendChat("/do На столе находится бланк и ручка.")
+                                wait(2100)
+                                sampSendChat("/n SMS на " ..Number.. ": DM, TK, PG.")
+                                wait(300)
+                                sobes = 4
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                                elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек не знает MG.", 0xFFFFFF)
+                                wait(500)
+                                sobes = 0
+                                sampSendChat("К сожалению Вы нам не подходите.")
+                                break
+                            end
+                        end
+                        while sobes == 4 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно.", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("/me взял из рук человека напротив бланк и рассмотрел его")
+                                wait(2100)
+                                sobes = 0
+                                sampSendChat("Отлично. Поздравляю Вас с должностью 'Начинающий работник'.")
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно.", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("/me взял из рук человека напротив бланк и рассмотрел его")
+                                wait(2100)
+                                sobes = 0
+                                sampSendChat("К сожалению Вы нам не подходите.")
+                                break
+                            end
+                        end
+					end)
+                end
+            end
+        end
+		--
+		-- /main > 3
+		result, button, list, reason = sampHasDialogRespond(3003)
+		if result then
+			if button == 1 then
+				if list == 0 then
+					sampShowDialog(3031, "{FFFF66}Лекции", "{4271FF}1.{FFFFFF} Субординация\n{4271FF}2.{FFFFFF} Дресс-код\n{4271FF}3.{FFFFFF} Служебный транспорт\n{4271FF}4.{FFFFFF} Распорядок дня\n{4271FF}5.{FFFFFF} Отделы СМИ", "Ok", "Cancel", 2)
+				elseif list == 1 then
+					sampShowDialog(3032, "{FFFF66}Проверка", "{4271FF}1.{FFFFFF} Устав СМИ\n{4271FF}2.{FFFFFF} ПРО", "Ok", "Cancel", 2)
+				end
+			end
+		end
+		--
+		-- /main > 3 > 1
+		result, button, list, reason = sampHasDialogRespond(3031)
+		if result then
+			if button == 1 then
+				if list == 0 then
+					sampShowDialog(3311, "{FFFF66}Куда зачитать?", "Ничего не вводите, что бы зачитать в обычный чат\nВведите '/r ' с пробелом и без кавычек, что бы зачитать в рацию", "Ok", "Cancel", 1)
+				elseif list == 1 then
+					sampShowDialog(3312, "{FFFF66}Куда зачитать?", "Ничего не вводите, что бы зачитать в обычный чат\nВведите '/r ' с пробелом и без кавычек, что бы зачитать в рацию", "Ok", "Cancel", 1)
+				elseif list == 2 then
+					sampShowDialog(3313, "{FFFF66}Куда зачитать?", "Ничего не вводите, что бы зачитать в обычный чат\nВведите '/r ' с пробелом и без кавычек, что бы зачитать в рацию", "Ok", "Cancel", 1)
+				elseif list == 3 then
+					sampShowDialog(3314, "{FFFF66}Куда зачитать?", "Ничего не вводите, что бы зачитать в обычный чат\nВведите '/r ' с пробелом и без кавычек, что бы зачитать в рацию", "Ok", "Cancel", 1)
+				elseif list == 4 then
+					sampShowDialog(3315, "{FFFF66}Куда зачитать?", "Ничего не вводите, что бы зачитать в обычный чат\nВведите '/r ' с пробелом и без кавычек, что бы зачитать в рацию", "Ok", "Cancel", 1)
+				end
+			end
+		end
+		--
+		-- /main > 3 > 1
+		result, button, list, reason = sampHasDialogRespond(3032)
+		if result then
+			if button == 1 then
+				if list == 0 then
+					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Начата проверка Устава СМИ", 0xFFFFFF)
+					lua_thread.create(function()
+						sampSendChat("Рабочее время по будням с учетом перерывов?")
+						wait(300)
+						sobes = 1
+						sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                        while sobes == 1 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Вы ответили верно.")
+								wait(2100)
+								sampSendChat("С какой должности разрешено пользоваться рабочим фургоном?")
+                                wait(300)
+                                sobes = 2
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Правильный ответ: С 10 до 20, перерыв с 13 до 14 и с 17 до 18.")
+								wait(2100)
+								sampSendChat("С какой должности разрешено пользоваться рабочим фургоном?")
+                                wait(300)
+                                sobes = 2
+								sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            end
+                        end
+                        while sobes == 2 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Вы ответили верно.")
+								wait(2100)
+								sampSendChat("Переводы между радиоцентрами с какой должности?")
+                                wait(300)
+                                sobes = 3
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Правильный ответ: Репортёр.")
+								wait(2100)
+								sampSendChat("Переводы между радиоцентрами с какой должности?")
+                                wait(300)
+                                sobes = 3
+								sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            end
+                        end
+						while sobes == 3 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Вы ответили верно.")
+								wait(2100)
+								sampSendChat("С какой должности разрешено пользоваться рабочим вертолётом?")
+                                wait(300)
+                                sobes = 4
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Правильный ответ: Репортёр.")
+								wait(2100)
+								sampSendChat("С какой должности разрешено пользоваться рабочим вертолётом?")
+                                wait(300)
+                                sobes = 4
+								sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            end
+                        end
+						while sobes == 4 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек сдал устав СМИ", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("Поздравляю. Вы сдали устав СМИ.")
+                                sobes = 0
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек не сдал устав СМИ", 0xFFFFFF)
+                                wait(500)
+                                sampSendChat("Правильный ответ: Режиссёр.")
+                                wait(2100)
+                                sampSendChat("Вы не сдали устав СМИ. Жду на пересдаче.")
+                                sobes = 0
+                                break
+                            end
+                        end
+					end)
+				elseif list == 1 then
+										sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Начата проверка ПРО", 0xFFFFFF)
+					lua_thread.create(function()
+						sampSendChat("Возьмите лист и ручку с рабочего стола.")
+						wait(2100)
+						sampSendChat("/do На столе лежит стопка листов и пара ручек.")
+						wait(2100)
+						sampSendChat("Я буду надиктовывать объявления, а вы сразу же редактировать их.")
+						wait(2100)
+						sampSendChat("/n Отвечат начинать с: /do LV |")
+						wait(2100)
+						sampSendChat("Куплю биз 40кк")
+						wait(300)
+						sobes = 1
+						sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                        while sobes == 1 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("Вы ответили верно.")
+								wait(2100)
+								sampSendChat("Продам дигл 10$ за пульку")
+                                wait(300)
+                                sobes = 2
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("/do Правильный ответ: LV | Куплю прибыльное предприятие в любой точке штата. Бюджет: 40.000.000$.")
+								wait(2100)
+								sampSendChat("Продам дигл 10$ за пульку")
+                                wait(300)
+                                sobes = 2
+								sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            end
+                        end
+                        while sobes == 2 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("Вы ответили верно.")
+								wait(2100)
+								sampSendChat("Продам средняк с гаражом за 2кк")
+                                wait(300)
+                                sobes = 3
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("/do Правильный ответ: Отклонено: LV | ПРО (Запрещено).")
+								wait(2100)
+								sampSendChat("Продам средняк с гаражом за 2кк")
+                                wait(300)
+                                sobes = 3
+								sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            end
+                        end
+						while sobes == 3 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил верно", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("Вы ответили верно.")
+								wait(2100)
+								sampSendChat("Куплю телегу фпт 800к")
+                                wait(300)
+                                sobes = 4
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек ответил неверно", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("/do Правильный ответ: Отклонено: LV | ПРО (Укажите местоположение).")
+								wait(2100)
+								sampSendChat("Куплю телегу фпт 800к")
+                                wait(300)
+                                sobes = 4
+								sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Нажмите на '+' или '/', что бы сделать выбор.", 0xFFFFFF)
+                                break
+                            end
+                        end
+						while sobes == 4 do
+                            wait(10)
+                            if isKeyDown(VK_ADD) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек сдал ПРО{ffffff}", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+								sampSendChat("Поздравляю. Вы сдали ПРО.")
+                                sobes = 0
+                                break
+                            elseif isKeyDown(VK_DIVIDE) then
+                                sampAddChatMessage("• {FFC800}[Подсказка] {ffffff}Человек не сдал ПРО{ffffff}", 0xFFFFFF)
+                                wait(500)
+								sampSendChat("/me взглянул на листок")
+								wait(2100)
+                                sampSendChat("/do Правильный ответ: LV | Куплю автомобиль марки 'Elegy' [Full PT]. Бюджет: 800.000$")
+								wait(2100)
+                                sampSendChat("Вы не сдали ПРО. Жду на пересдаче.")
+                                sobes = 0
+                                break
+                            end
+                        end
+					end)
+				end
+			end
+		end
+		--
+		-- /main > 3 > 1 > 1
+		result, button, list, reason = sampHasDialogRespond(3311)
+		if result then
+			if button == 1 then
+				lua_thread.create(function()
+				punish = "lection"
+				sampSendChat(reason.. "Доброго времени суток, коллеги.")
+				wait(2100)
+				sampSendChat(reason.. "Сейчас я проведу лекцию на тему 'Субординация'.")
+				wait(2100)
+				sampSendChat(reason.. "Субординация - следование правил взаимоотношений между лицами.")
+				wait(2100)
+				sampSendChat(reason.. "Она предусматривает уважительные отношения между начальником и подчинённым.")
+				wait(2100)
+				sampSendChat(reason.. "В гос.организациях правила субординации устанавливают..")
+				wait(2100)
+				sampSendChat(reason.. "..порядок соблюдения определённых традиций.")
+				wait(2100)
+				sampSendChat(reason.. "Так же к старшим по званию необходимо обращаться на 'Вы'.")
+				wait(2100)
+				sampSendChat(reason.. "Если есть вопросы, задавайте!")
+				while true do
+    				wait(10)
+    				if isKeyDown(VK_ADD) then
+    					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    					break
+    				end
+ 				end
+ 				end)
+			end
+		end
+		--
+		-- /main > 3 > 1 > 2
+		result, button, list, reason = sampHasDialogRespond(3312)
+		if result then
+			if button == 1 then
+				lua_thread.create(function()
+				punish = "lection"
+				sampSendChat(reason.. "Дресс-код должен соблюдаться всеми сотрудниками за исключением в рабочего времени.")
+				wait(2100)
+				sampSendChat(reason.. "За нарушение дресс-кода сотруднику будет выдан выговор.")
+				wait(2100)
+				sampSendChat(reason.. "При желании, Управляющий может носить свободную форму.")
+				wait(2100)
+				sampSendChat(reason.. "Сотруднику разрешено не соблюдать Дресс-код во время обеденного перерыва.")
+				while true do
+    				wait(10)
+    				if isKeyDown(VK_ADD) then
+    					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    					break
+    				end
+ 				end
+ 				end)
+			end
+		end
+		--
+		-- /main > 3 > 1 > 3
+		result, button, list, reason = sampHasDialogRespond(3313)
+		if result then
+			if button == 1 then
+				lua_thread.create(function()
+				punish = "lection"
+				sampSendChat(reason.. "Уважаемые коллеги, прошу минуточку Вашего внимания.")
+				wait(2100)
+				sampSendChat(reason.. "Брать служебный транспорт без cпроса Руководящего состава - запрещено.")
+				wait(2100)
+				sampSendChat(reason.. "Так же при разрешении, запрещено использовать служебный транспорт в личных целях.")
+				wait(2100)
+				sampSendChat(reason.. "Рабочий транспорт свободно разрешён с должности 'Репортёра.")
+				wait(2100)
+				sampSendChat(reason.. "В противном случае, вы будете уволены.")
+				while true do
+    				wait(10)
+    				if isKeyDown(VK_ADD) then
+    					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    					break
+    				end
+ 				end
+ 				end)
+			end
+		end
+		---- /main > 3 > 1 > 4
+		result, button, list, reason = sampHasDialogRespond(3314)
+		if result then
+			if button == 1 then
+				lua_thread.create(function()
+				punish = "lection"
+				sampSendChat(reason.. "Уважаемые коллеги, прошу минуту Вашего внимания.")
+				wait(2100)
+				sampSendChat(reason.. "Рабочий день с понедельника по пятницу начинается в..")
+				wait(2100)
+				sampSendChat(reason.. "..10:00 и кончается в 20:00, а в субботу с 10:00 до 19:00.")
+				wait(2100)
+				sampSendChat(reason.. "Обеденный перерыв проходит с 13:00 до 14:00 и c 17:00 до 18:00 только по будням.")
+				wait(2100)
+				sampSendChat(reason.. "За прогул рабочего дня Вы будете уволены и занесены в ЧС.")
+				while true do
+    				wait(10)
+    				if isKeyDown(VK_ADD) then
+    					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    					break
+    				end
+ 				end
+ 				end)
+			end
+		end
+		---- /main > 3 > 1 > 5
+		result, button, list, reason = sampHasDialogRespond(3315)
+		if result then
+			if button == 1 then
+				lua_thread.create(function()
+				punish = "lection"
+				sampSendChat(reason.. "Доброго времени суток,коллеги.")
+				wait(2100)
+				sampSendChat(reason.. "Сейчас я проведу лекцию на тему 'Отделы СМИ'.")
+				wait(2100)
+				sampSendChat(reason.. "Существует несколько отделов, в которые вы можете вступить с должности 'Репортер'.")
+				wait(2100)
+				sampSendChat(reason.. "У нас существуют такие отделы, как: 'Вещание'..")
+				wait(2100)
+				sampSendChat(reason.. "..в котором два подотдела : Радиовещание и Телевещание.")
+				wait(2100)
+				sampSendChat(reason.. "Отдел 'Корреспонденция', в котором есть два подотдела : Криминология и журналистика.")
+				wait(2100)
+				sampSendChat(reason.. "Отдел 'Креативный центр', в котором есть два подотдела: Пресс-центр и Киностудия.")
+				wait(2100)
+				sampSendChat(reason.. "Отдел 'Учебный центр', в котором есть два подотдела : Учебный и Учебная академия.")
+				wait(2100)
+				sampSendChat(reason.. "Существует еще один отдел 'Редакция', в котором отсутствуют подотделы.")
+				wait(2100)
+				sampSendChat(reason.. "Переводиться между отделами разрешено с должности 'Оператор'.")
+				wait(2100)
+				sampSendChat(reason.. "Если есть вопросы,задавайте!")
+				while true do
+    				wait(10)
+    				if isKeyDown(VK_ADD) then
+    					sampAddChatMessage("• {00CC00}[Успешно] {ffffff}Скриншот будет сохранен в папку " ..punish, 0xFFFFFF)
+    					break
+    				end
+ 				end
+ 				end)
+			end
+		end
+		--
+	end
+end
+
+function cmd_main()
+	sampSendChat("/me достал из кармана телефон, после чего разблокировал его")
+	sampShowDialog(3000, "{FFFF66}Mass Media Assistant v1.0 by Rilliano Casiano", "{4271FF}1.{FFFFFF} Управление фракцией\n{4271FF}2.{FFFFFF} Собеседование\n{4271FF}3.{FFFFFF} Прочее", "Ok", "Cancel", 2)
+end
+
+function cmd_r(arg)
+	if #arg == 0 then
+	else
+	lua_thread.create(function()
+    	sampSendChat("/me снял с пояного крепления рацию 'TK-550' и нажал на кнопку 'R'")
+    	sampSendChat("/r " ..arg)
+		wait(2100)
+		sampSendChat("/me отпустил кнопку 'R' и повесил рацию на поясное крепление")
+    end)
+	end
+end
+
+function cmd_f(arg)
+	if #arg == 0 then
+	elseif arg == "Кхм" then
+		sampSendChat("/f Кхм")
+	else
+	lua_thread.create(function()
+    	sampSendChat("/me снял с пояного крепления рацию 'TK-550' и нажал на кнопку 'F'")
+    	sampSendChat("/f " ..Tag.. " • " ..arg)
+		wait(2100)
+		sampSendChat("/me отпустил кнопку 'F' и повесил рацию на поясное крепление")
+    end)
+	end
+end
+
+function cmd_rn(arg)
+	if #arg == 0 then
+	else
+    	sampSendChat("/r (( " ..arg.. " ))")
+	end
+end
+
+function cmd_fn(arg)
+	if #arg == 0 then
+	else
+    	sampSendChat("/f (( " ..arg.. " ))")
+	end
+end
+
+function cmd_p()
+	lua_thread.create(function()
+    	sampSendChat("/p")
+		wait(1000)
+		sampSendChat("Здравствуйте, я " ..Rang.. " " ..Tag.. "FM - " ..Name.. " " ..Surname.. ".")
+		wait(1000)
+		sampSendChat("Вы что-то хотели?")
+    end)
+end
+
+function cmd_h()
+	lua_thread.create(function()
+		sampSendChat("Хорошего Вам настроения.")
+		wait(1000)
+		sampSendChat("/h")
+    end)
+end
